@@ -11,6 +11,9 @@ defmodule Bauer.PageTest do
     <h1>Hello, world!</h1>
     <a href="/">Homepage</a>
     <a href="http://google.com">Google</a>
+    <form action="/search" method="get" name="search">
+      <input type="text" name="query" />
+    </form>
     </body>
     </html>
   """
@@ -33,6 +36,15 @@ defmodule Bauer.PageTest do
       links = Page.links(page)
       assert ["Homepage", "Google"] == Enum.map(links, &(&1.text))
       assert ["/", "http://google.com"] == Enum.map(links, &(&1.href))
+    end
+  end
+
+  describe "forms" do
+    test "parsing forms", %{page: page} do
+      form = Page.forms(page) |> Enum.at(0)
+      assert "search"  == form.name
+      assert "/search" == form.action
+      assert "get"     == form.method
     end
   end
 end

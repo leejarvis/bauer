@@ -27,4 +27,13 @@ defmodule Bauer.Page do
     |> find("a")
     |> Enum.map(&Bauer.Link.build/1)
   end
+
+  @doc """
+  Returns a list of `Bauer.Form` structs.
+  """
+  def forms(%Page{body: body}) do
+    body
+    |> find("form")
+    |> Enum.map(&Bauer.Form.build/1)
+  end
 end
