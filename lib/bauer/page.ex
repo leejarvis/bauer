@@ -2,10 +2,6 @@ defmodule Bauer.Page do
   @moduledoc """
   This module provides convenience functions for extracting information
   from a HTML page.
-
-  ## Examples
-
-      iex> %Bauer.Page{body: html} |> Bauer.Page.title() #=> "Hello, world!"
   """
 
   defstruct [:body]
@@ -15,11 +11,20 @@ defmodule Bauer.Page do
   import Bauer.Finders
 
   @doc """
-  Returns the HTML page title
+  Returns the HTML page title.
   """
   def title(%Page{body: body}) do
     body
     |> find("title")
     |> text()
+  end
+
+  @doc """
+  Returns a list of `Bauer.Link` structs.
+  """
+  def links(%Page{body: body}) do
+    body
+    |> find("a")
+    |> Enum.map(&Bauer.Link.build/1)
   end
 end
