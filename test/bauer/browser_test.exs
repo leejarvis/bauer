@@ -7,7 +7,7 @@ defmodule Bauer.BrowserTest do
 
   setup_all do
     HTTPoison.start
-    ExVCR.Config.cassette_library_dir("spec/fixtures/http")
+    ExVCR.Config.cassette_library_dir("test/fixtures/http")
   end
 
   test "basic request" do
