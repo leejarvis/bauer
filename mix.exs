@@ -38,7 +38,9 @@ defmodule Bauer.Mixfile do
   defp deps do
     [
       {:floki, "~> 0.9.0"},
-      {:ex_doc, "~> 0.12", only: :dev}
+      {:ex_doc, "~> 0.12", only: :dev},
+      {:exvcr, "~> 0.7", only: :test},
+      {:httpoison, "~> 0.9.0"}
     ]
   end
 
