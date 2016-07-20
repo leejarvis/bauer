@@ -6,6 +6,7 @@ defmodule Bauer.Mixfile do
   def project do
     [app: :bauer,
      version: @version,
+     elixirc_paths: elixirc_paths(Mix.env),
      name: "Bauer",
      source_url: "https://github.com/leejarvis/bauer",
      homepage_url: "https://github.com/leejarvis/bauer",
@@ -25,6 +26,10 @@ defmodule Bauer.Mixfile do
   def application do
     [applications: [:logger]]
   end
+
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_),     do: ["lib"]
 
   # Dependencies can be Hex packages:
   #
