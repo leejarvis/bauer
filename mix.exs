@@ -45,14 +45,12 @@ defmodule Bauer.Mixfile do
   end
 
   defp docs do
-    [extras: ["README.md"]]
+    [extras: ["README.md"], main: "readme"]
   end
 
   defp package do
-    [maintainer: ["Lee Jarvis"],
-      licenses: ["Apache 2.0"],
-      links: %{"GitHub" => "https://github.com/leejarvis/bauer"},
-      files: ~w(mix.exs README.md CHANGELOG.md lib)]
+    [licenses: ["Apache 2"],
+      links: %{"GitHub" => "https://github.com/leejarvis/bauer"}]
   end
 
 end
