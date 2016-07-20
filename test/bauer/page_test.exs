@@ -4,26 +4,17 @@ defmodule Bauer.PageTest do
 
   alias Bauer.Page
 
-  @body """
-    <html>
-    <head><title>Hello, world!</title></head>
-    <body>
-    <h1>Hello, world!</h1>
-    <a href="/">Homepage</a>
-    <a href="http://google.com">Google</a>
-    <form action="/search" method="get" name="search">
-      <input type="text" name="query" />
-    </form>
-    </body>
-    </html>
-  """
-
   setup(tags) do
-    page = %Page{body: @body}
-    tags = Map.put(tags, :page, page)
-    {:ok, tags}
+    case tags do
+      %{fixture: fixture} ->
+        html = Fixtures.html(fixture)
+        {:ok, Map.put(tags, :page, %Page{body: html})}
+      _ ->
+        {:ok, tags}
+    end
   end
 
+  @tag fixture: "simple.html"
   describe "title" do
     test "returns the title", %{page: page} do
       title = Page.title(page)
@@ -31,6 +22,7 @@ defmodule Bauer.PageTest do
     end
   end
 
+  @tag fixture: "simple.html"
   describe "links" do
     test "parsing links", %{page: page} do
       links = Page.links(page)
@@ -39,6 +31,7 @@ defmodule Bauer.PageTest do
     end
   end
 
+  @tag fixture: "simple.html"
   describe "forms" do
     test "parsing forms", %{page: page} do
       form = Page.forms(page) |> Enum.at(0)
