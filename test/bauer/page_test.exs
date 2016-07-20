@@ -1,18 +1,9 @@
 defmodule Bauer.PageTest do
-  use ExUnit.Case, async: true
+  use TestCase
+
   doctest Bauer.Page
 
   alias Bauer.Page
-
-  setup(tags) do
-    case tags do
-      %{fixture: fixture} ->
-        html = Fixtures.html(fixture)
-        {:ok, Map.put(tags, :page, %Page{body: html})}
-      _ ->
-        {:ok, tags}
-    end
-  end
 
   @tag fixture: "simple.html"
   describe "title" do
