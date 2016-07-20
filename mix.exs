@@ -1,9 +1,11 @@
 defmodule Bauer.Mixfile do
   use Mix.Project
 
+  @version "0.1.0"
+
   def project do
     [app: :bauer,
-     version: "0.1.0",
+     version: @version,
      name: "Bauer",
      source_url: "https://github.com/leejarvis/bauer",
      homepage_url: "https://github.com/leejarvis/bauer",
@@ -11,7 +13,9 @@ defmodule Bauer.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps(),
-     docs: docs()
+     docs: docs(),
+     description: "Functional web browsing",
+     package: package(),
    ]
   end
 
@@ -41,4 +45,12 @@ defmodule Bauer.Mixfile do
   defp docs do
     [extras: ["README.md"]]
   end
+
+  defp package do
+    [maintainer: ["Lee Jarvis"],
+      licenses: ["Apache 2.0"],
+      links: %{"GitHub" => "https://github.com/leejarvis/bauer"},
+      files: ~w(mix.exs README.md CHANGELOG.md lib)]
+  end
+
 end
