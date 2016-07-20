@@ -12,7 +12,7 @@ It's a work-in-progress, come back another time :-)
 
 ```elixir
 def deps do
-  [{:bauer, "~> 1.0.0"}]
+  [{:bauer, "~> 0.1.0"}]
 end
 ```
 
