@@ -24,4 +24,6 @@ defmodule Bauer.Finders do
       more  -> more
     end
   end
+
+  def children({_tag, _attributes, children}), do: children
 end
