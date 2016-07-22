@@ -34,6 +34,16 @@ defmodule Bauer.Node do
     end
   end
 
+  @doc """
+  Search for a node using a CSS query.
+
+  ## Examples
+
+      Node.find(node, "#content")
+      {"div", [{"id", "content"}] ["..."]}
+
+  Returns the first node found, or `nil` if nothing was found.
+  """
   def find(node, query) do
     case Floki.find(node, query) do
       [] -> nil
@@ -41,12 +51,41 @@ defmodule Bauer.Node do
     end
   end
 
+  @doc """
+  Search for nodes using a CSS query.
+
+  ## Examples
+
+      Node.search(node, "a[class='clickme']")
+      [{"a", [{"class", "clickme"}], ["..."]},
+        {"a", [{"class", "clickme"}], ["..."]}]
+
+  Returns a list of matching nodes.
+  """
   def search(node, query), do: Floki.find(node, query)
 
+  @doc """
+  Returns the tag name for a node.
+
+  ## Examples
+
+      iex> Node.parse("<section>lorem ipsum</section") |> Node.tag()
+      "section"
+
+  """
   def tag({tag, _attrs, _children}), do: tag
 
   def text(nil), do: nil
   def text(node), do: Floki.text(node)
 
+  @doc """
+  Returns the raw HTML for a node.
+
+  ## Examples
+
+      html == Node.parse(html) |> Node.to_html
+      true
+
+  """
   def to_html(node), do: Floki.raw_html(node)
 end
