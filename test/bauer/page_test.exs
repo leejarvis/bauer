@@ -32,6 +32,7 @@ defmodule Bauer.PageTest do
     test "finding forms", %{page: page} do
       assert Page.find_form(page, "search")
       assert Page.find_form(page, method: "get", id: "search")
+      assert Page.find_form(page, %{"method" => "get", "id" => "search"})
 
       refute Page.find_form(page, "missing")
       refute Page.find_form(page, method: "post")
