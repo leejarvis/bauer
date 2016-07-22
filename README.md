@@ -16,6 +16,30 @@ def deps do
 end
 ```
 
+## Example
+
+```elixir
+defmodule DDG do
+  use Bauer
+
+  def search(query) do
+    start_browser
+    |> open("https://duckduckgo.com")
+    |> find_form(id: "search_form_input_homepage")
+    |> fill_form(q: query)
+    |> submit_form
+    |> parse_results
+  end
+
+  defp parse_results(%Bauer.Browser{page: page}) do
+    page
+    |> links
+  end
+end
+
+results = DDG.search("elixir-lang")
+```
+
 ## License
 
 Bauer source code is released under Apache 2 License.
