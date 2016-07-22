@@ -47,4 +47,6 @@ defmodule Bauer.Node do
 
   def text(nil), do: nil
   def text(node), do: Floki.text(node)
+
+  def to_html(node), do: Floki.raw_html(node)
 end

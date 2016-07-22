@@ -15,7 +15,7 @@ defmodule Bauer.NodeTest do
       <p>Some <strong>interesting</strong> text</p>
     </div>
   </div>
-  """
+  """ |> String.replace(~r/\n\s*/, "")
 
   setup(tags) do
     {:ok, Map.put(tags, :node, Node.parse(@html))}
@@ -43,5 +43,9 @@ defmodule Bauer.NodeTest do
   test "text/1", %{node: node} do
     assert "interesting" == Node.find(node, "strong") |> Node.text()
     assert nil == Node.find(node, "omg") |> Node.text()
+  end
+
+  test "to_html/1", %{node: node} do
+    assert @html == Node.to_html(node)
   end
 end
