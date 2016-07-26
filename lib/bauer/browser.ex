@@ -7,6 +7,7 @@ defmodule Bauer.Browser do
   ]
 
   alias Bauer.{Browser, Page}
+  import Bauer.Node
 
   ## API
 
@@ -21,6 +22,31 @@ defmodule Bauer.Browser do
     end
   end
 
+  def click_link(%Browser{page: page} = browser, link_text) do
+    link = case Enum.find(Page.links(page), &(text(&1) == link_text)) do
+      node -> attribute(node, "href")
+      nil -> nil
+    end
+
+    url = case link do
+      "/" <> _ ->
+        URI.parse(get_current(browser, :address))
+        |> Map.put(:path, link)
+        |> URI.to_string
+      _ ->
+        nil
+    end
+
+    case url do
+      nil -> browser
+      _ -> open(browser, url)
+    end
+  end
+
+  def page_title(%Browser{page: page}) do
+    Page.title(page)
+  end
+
   defp open_page(%Browser{} = browser, url, page) do
     browser
     |> put_current(:address, url)
@@ -28,8 +54,11 @@ defmodule Bauer.Browser do
   end
 
   def put_current(browser, key, value) do
-    Keyword.put(browser.current, key, value)
-    browser
+    %{browser | current: Keyword.put(browser.current, key, value)}
+  end
+
+  def get_current(browser, key) do
+    Keyword.get(browser.current, key)
   end
 
   def put_page(browser, page) do

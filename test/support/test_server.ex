@@ -8,6 +8,10 @@ defmodule TestServer do
     put_resp(conn, "simple.html")
   end
 
+  get "/complex_form" do
+    put_resp(conn, "complex_form.html")
+  end
+
   def put_resp(conn, fixture) do
     conn
     |> put_resp_content_type("text/html")

@@ -27,4 +27,13 @@ defmodule BauerTest do
 
     assert 2 == Enum.count(browser.history)
   end
+
+  test "clicking links", %{browser: browser} do
+    title = browser
+    |> open("http://localhost:4000/simple")
+    |> click_link("Complex form")
+    |> page_title
+
+    assert "Complex form" == title
+  end
 end
