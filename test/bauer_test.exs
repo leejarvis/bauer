@@ -4,8 +4,6 @@ defmodule BauerTest do
   # This module really just tests Bauer.Browser
   # but it's here to define the API with `use`
 
-  # FIXME: Stop hitting external services ya hot dog
-
   doctest Bauer
 
   use Bauer
@@ -19,13 +17,13 @@ defmodule BauerTest do
   end
 
   test "open", %{browser: browser} do
-    browser = open(browser, "https://duckduckgo.com")
+    browser = open(browser, "http://localhost:4000/simple")
     assert browser.page
   end
 
   test "history", %{browser: browser} do
-    browser = open(browser, "https://duckduckgo.com")
-    browser = open(browser, "https://google.com")
+    browser = open(browser, "http://localhost:4000/simple")
+    browser = open(browser, "http://localhost:4000/simple")
 
     assert 2 == Enum.count(browser.history)
   end

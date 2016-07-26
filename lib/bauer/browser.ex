@@ -1,8 +1,7 @@
 defmodule Bauer.Browser do
   defstruct [
-    address: nil,
+    current: [address: nil],
     page: nil,
-    form: nil,
     started?: false,
     history: [],
   ]
@@ -23,11 +22,18 @@ defmodule Bauer.Browser do
   end
 
   defp open_page(%Browser{} = browser, url, page) do
-    %{browser |
-      address: url,
-      page: page,
-      history: [page | browser.history]
-    }
+    browser
+    |> put_current(:address, url)
+    |> put_page(page)
+  end
+
+  def put_current(browser, key, value) do
+    Keyword.put(browser.current, key, value)
+    browser
+  end
+
+  def put_page(browser, page) do
+    %{browser | page: page, history: [page | browser.history]}
   end
 
   def get(%Browser{}, url) do

@@ -44,8 +44,9 @@ defmodule Bauer.Mixfile do
     [
       {:floki, "~> 0.9.0"},
       {:ex_doc, "~> 0.12", only: :dev},
-      {:exvcr, "~> 0.7", only: :test},
-      {:httpoison, "~> 0.9.0"}
+      {:httpoison, "~> 0.9.0"},
+      {:cowboy, "~> 1.0.0", only: :test},
+      {:plug, "~> 1.0", only: :test}
     ]
   end
 
