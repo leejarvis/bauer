@@ -88,4 +88,17 @@ defmodule Bauer.Node do
 
   """
   def to_html(node), do: Floki.raw_html(node)
+
+  @doc """
+  Returns the attributes as a Map.
+
+  ## Examples
+
+      Node.parse("<div id="content"></div>") |> Node.attributes
+      %{"id" => "content"}
+
+  """
+  def attributes({_tag, attrs, _children}) do
+    Enum.into(attrs, %{})
+  end
 end

@@ -5,7 +5,13 @@ defmodule Bauer.PageTest do
 
   alias Bauer.{Page, Node}
 
-  @tag fixture: "simple.html"
+  setup(tags) do
+    html = Fixtures.html("simple.html")
+    tags = Map.put(tags, :page, %Bauer.Page{body: html})
+
+    {:ok, tags}
+  end
+
   describe "title" do
     test "returns the title", %{page: page} do
       title = Page.title(page)
@@ -13,7 +19,6 @@ defmodule Bauer.PageTest do
     end
   end
 
-  @tag fixture: "simple.html"
   describe "links" do
     test "parsing links", %{page: page} do
       links = Page.links(page)
@@ -22,13 +27,11 @@ defmodule Bauer.PageTest do
   end
 
   describe "forms" do
-    @tag fixture: "simple.html"
     test "parsing forms", %{page: page} do
       forms = Page.forms(page)
       assert 1 == Enum.count(forms)
     end
 
-    @tag fixture: "simple.html"
     test "finding forms", %{page: page} do
       assert Page.find_form(page, "search")
       assert Page.find_form(page, method: "get", id: "search")
